@@ -1,4 +1,8 @@
-<? include ("validador_acesso.php"); ?>
+<?
+ include ("validador_acesso.php");
+ 
+ print_r($_SESSION);
+ ?>
 
 <html>
   <head>

@@ -3,12 +3,22 @@
 session_start();
 
 //variavel que verifica se a auteenticação foi realizada
+
+
 $usuario_autenticado = false;
+$usuario_id = null;
+$usuario_perfil_id = null;
+
+$perfis = array(1 => 'Administrativo', 2 => 'Usuario');
+
 $usuarios_app = array(
-    array('email' => 'luan.lucas@live.com', 'senha' => 'luanlukas10'),
-    array('email' => 'teste@live.com', 'senha' => '159753'),
+    array('id' => 1, 'email' => 'luan.lucas@live.com', 'senha' => 'luanlukas10', 'perfil_id' => 1),
+    array('id' => 2, 'email' => 'teste@live.com', 'senha' => '159753', 'perfil_id' => 1),
+    array('id' => 3, 'email' => 'jose@teste.com', 'senha' => '123', 'perfil_id' => 2),
+    array('id' => 4, 'email' => 'maria@teste.com', 'senha' => '123', 'perfil_id' => 2)
 
 );
+
 
 /*
 echo '<pre>';
@@ -17,25 +27,26 @@ echo '</pre>';
 
 */
 
-foreach($usuarios_app as $users){
+foreach($usuarios_app as $user){
     
 
-    if($users['email'] == $_POST['email'] && $users['senha'] == $_POST['senha']){
+    if($user['email'] == $_POST['email'] && $user['senha'] == $_POST['senha']){
         $usuario_autenticado = true;
-        echo 'usuario autenticado';
+        $usuario_id = $user['id'];
+        $usuario_perfil_id = $user['perfil_id'];
     }
 
 }
 
 if($usuario_autenticado){
     $_SESSION['autenticado'] = 'SIM';
-    $_SESSION['x'] = 'um valor';
-    $_SESSION['y'] = 'outro valor';
+    $_SESSION['id'] = $usuario_id;
+    $_SESSION['perfil_id'] = $usuario_perfil_id;
     header('Location: home.php');
 
 }else{
     $_SESSION['autenticado'] = 'NAO';
-    header('Location: index.php?login=erro');
+   header('Location: index.php?login=erro');
 }
 /*
 echo $_GET["email"];
